@@ -19,11 +19,10 @@ public class DataReader {
 
     public String[][] getData(final String dataFilePath, final String delim) throws URISyntaxException, IOException {
         final Path dataPath = Paths.get(ClassLoader.getSystemResource(dataFilePath).toURI());
-        String[] data;
         try (Stream<String> headerStream = Files.lines(dataPath)) {
-            data = headerStream.toArray(String[]::new);
+            final String[] data = headerStream.toArray(String[]::new);
+            return Arrays.stream(data).map(line -> line.split(delim)).toArray(String[][]::new);
         }
-        return Arrays.stream(data).map(line -> line.split(delim)).toArray(String[][]::new);
     }
 
     public String[] getColumn(final String[] header, final String[][] data, final String col) {

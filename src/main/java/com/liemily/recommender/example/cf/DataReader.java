@@ -25,4 +25,9 @@ public class DataReader {
         }
         return Arrays.stream(data).map(line -> line.split(delim)).toArray(String[][]::new);
     }
+
+    public String[] getColumn(final String[] header, final String[][] data, final String col) {
+        final int idx = Arrays.asList(header).indexOf(col);
+        return Arrays.stream(data).map(line -> line[idx]).toArray(String[]::new);
+    }
 }

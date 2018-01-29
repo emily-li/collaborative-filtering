@@ -37,9 +37,9 @@ public class DataReaderTest {
     }
 
     @Test
-    public void testGetColumn() throws Exception {
+    public void testGetColumn() {
         final String[] col = dataReader.getColumn(header, data, "item");
-        final String[] expected = new String[]{"1", "4"};
+        final String[] expected = new String[]{"1", "4", "7", "10"};
         assertArrayEquals(expected, col);
     }
 }

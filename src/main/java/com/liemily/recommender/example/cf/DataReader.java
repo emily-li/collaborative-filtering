@@ -17,16 +17,10 @@ public class DataReader {
         }
     }
 
-    public String[][] getData(final String dataFilePath, final String delim) throws URISyntaxException, IOException {
+    public int[][] getData(final String dataFilePath, final String delim) throws URISyntaxException, IOException {
         final Path dataPath = Paths.get(ClassLoader.getSystemResource(dataFilePath).toURI());
-        try (Stream<String> headerStream = Files.lines(dataPath)) {
-            final String[] data = headerStream.toArray(String[]::new);
-            return Arrays.stream(data).map(line -> line.split(delim)).toArray(String[][]::new);
+        try (Stream<String> dataStream = Files.lines(dataPath)) {
+            return dataStream.map(row -> Arrays.stream(row.split(delim)).mapToInt(Integer::parseInt).toArray()).toArray(int[][]::new);
         }
-    }
-
-    public String[] getColumn(final String[] header, final String[][] data, final String col) {
-        final int idx = Arrays.asList(header).indexOf(col);
-        return Arrays.stream(data).map(line -> line[idx]).toArray(String[]::new);
     }
 }

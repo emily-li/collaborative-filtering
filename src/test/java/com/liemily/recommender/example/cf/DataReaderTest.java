@@ -1,14 +1,15 @@
 package com.liemily.recommender.example.cf;
 
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 
 public class DataReaderTest {
     private static DataReader dataReader;
     private static String[] header;
-    private static String[][] data;
+    private static int[][] data;
 
     @BeforeClass
     public static void setupBeforeClass() throws Exception {
@@ -28,18 +29,11 @@ public class DataReaderTest {
     public void testCanReadData() {
         assertTrue(data.length > 0);
         int expectedItem = 0;
-        for (String[] line : data) {
-            for (String item : line) {
-                assertEquals(expectedItem + "", item);
+        for (int[] row : data) {
+            for (int item : row) {
+                assertEquals(expectedItem, item);
                 expectedItem++;
             }
         }
-    }
-
-    @Test
-    public void testGetColumn() {
-        final String[] col = dataReader.getColumn(header, data, "item");
-        final String[] expected = new String[]{"1", "4", "7", "10"};
-        assertArrayEquals(expected, col);
     }
 }

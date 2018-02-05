@@ -1,8 +1,8 @@
 package com.liemily.recommender.example.cf.domain;
 
 public class DataSets {
-    private String[][] testSet;
-    private String[][] trainingSet;
+    private final String[][] testSet;
+    private final String[][] trainingSet;
 
     public DataSets(String[][] testSet, String[][] trainingSet) {
         this.testSet = testSet;

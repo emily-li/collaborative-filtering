@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class DataReaderTest {
     private static DataReader dataReader;
     private static String[] header;
-    private static int[][] data;
+    private static String[][] data;
 
     @BeforeClass
     public static void setupBeforeClass() throws Exception {
@@ -29,9 +29,9 @@ public class DataReaderTest {
     public void testCanReadData() {
         assertTrue(data.length > 0);
         int expectedItem = 0;
-        for (int[] row : data) {
-            for (int item : row) {
-                assertEquals(expectedItem, item);
+        for (String[] row : data) {
+            for (String item : row) {
+                assertEquals(expectedItem + "", item);
                 expectedItem++;
             }
         }

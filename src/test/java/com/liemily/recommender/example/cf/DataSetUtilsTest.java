@@ -12,7 +12,7 @@ public class DataSetUtilsTest {
     private static DataReader dataReader;
     private static DataSetUtils dataSetUtils;
     private static String[] header;
-    private static int[][] data;
+    private static String[][] data;
 
     @BeforeClass
     public static void setupBeforeClass() throws Exception {
@@ -32,15 +32,15 @@ public class DataSetUtilsTest {
 
     @Test
     public void testShuffleData() {
-        int[][] shuffledData = Arrays.copyOf(data, data.length);
+        String[][] shuffledData = Arrays.copyOf(data, data.length);
         dataSetUtils.shuffle(shuffledData);
         assertFalse(Arrays.equals(data, shuffledData));
     }
 
     @Test
     public void testGetColumn() throws Exception {
-        final int[] col = dataSetUtils.getColumn("item", header, data);
-        final int[] expected = new int[]{1, 4, 7, 10};
+        final String[] col = dataSetUtils.getColumn("item", header, data);
+        final String[] expected = new String[]{"1", "4", "7", "10"};
         assertArrayEquals(expected, col);
     }
 
@@ -58,13 +58,13 @@ public class DataSetUtilsTest {
 
     @Test
     public void testGetEntityToEntityMap() throws Exception {
-        int[][] expectedMatrix = new int[][]{
-                new int[]{0, 1, 2},
-                new int[]{3, 4, 5},
-                new int[]{9, 7, 8},
-                new int[]{9, 10, 11}
+        final String defaultValue = "";
+        final String[][] expectedMatrix = new String[][]{
+                new String[]{"2", defaultValue, defaultValue, defaultValue},
+                new String[]{defaultValue, "5", defaultValue, defaultValue},
+                new String[]{defaultValue, defaultValue, "8", "11"}
         };
-        int[][] actualMatrix = dataSetUtils.getEntityToEntityMatrix(header, data, "user", "item", "rating");
+        final String[][] actualMatrix = dataSetUtils.getEntityToEntityMatrix(header, data, "user", "item", "rating", defaultValue);
         assertTrue(Arrays.deepEquals(expectedMatrix, actualMatrix));
     }
 }

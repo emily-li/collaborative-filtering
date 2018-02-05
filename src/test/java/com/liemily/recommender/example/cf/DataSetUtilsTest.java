@@ -11,16 +11,14 @@ import static org.junit.Assert.*;
 public class DataSetUtilsTest {
     private static DataReader dataReader;
     private static DataSetUtils dataSetUtils;
-    private static String[] header;
-    private static String[][] data;
+    private static DataSet data;
 
     @BeforeClass
     public static void setupBeforeClass() throws Exception {
         dataReader = new DataReader();
         dataSetUtils = new DataSetUtils();
 
-        header = dataReader.getHeader("testdata/header", "\t");
-        data = dataReader.getData("testdata/data2", "\t");
+        data = dataReader.getData("testdata/header", "testdata/data2", "\t");
     }
 
     @Test
@@ -32,27 +30,28 @@ public class DataSetUtilsTest {
 
     @Test
     public void testShuffleData() {
-        String[][] shuffledData = Arrays.copyOf(data, data.length);
-        dataSetUtils.shuffle(shuffledData);
-        assertFalse(Arrays.equals(data, shuffledData));
+        DataSet shuffledData = new DataSet(data.getHeader(), data.getData());
+        assertTrue(Arrays.equals(data.getData(), shuffledData.getData()));
+        shuffledData.shuffle();
+        assertFalse(Arrays.equals(data.getData(), shuffledData.getData()));
     }
 
     @Test
     public void testGetColumn() throws Exception {
-        final String[] col = dataSetUtils.getColumn("item", header, data);
+        final String[] col = data.select("item");
         final String[] expected = new String[]{"1", "4", "7", "10"};
         assertArrayEquals(expected, col);
     }
 
     @Test(expected = NoSuchFieldException.class)
     public void testGetInvalidColumn() throws Exception {
-        dataSetUtils.getColumn("a", header, data);
+        data.select("a");
     }
 
     @Test
     public void testGetUniqueCountForField() throws Exception {
         final long expectedUniqUsers = 3;
-        final long actualUniqUsers = dataSetUtils.count("user", header, data);
+        final long actualUniqUsers = data.distinct("user").length;
         assertEquals(expectedUniqUsers, actualUniqUsers);
     }
 
@@ -64,7 +63,7 @@ public class DataSetUtilsTest {
                 new String[]{defaultValue, "5", defaultValue, defaultValue},
                 new String[]{defaultValue, defaultValue, "8", "11"}
         };
-        final String[][] actualMatrix = dataSetUtils.getEntityToEntityMatrix(header, data, "user", "item", "rating", defaultValue);
+        final String[][] actualMatrix = dataSetUtils.getEntityToEntityMatrix(data, "user", "item", "rating", defaultValue);
         assertTrue(Arrays.deepEquals(expectedMatrix, actualMatrix));
     }
 }

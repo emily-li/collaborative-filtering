@@ -1,7 +1,5 @@
 package com.liemily.recommender.example.cf;
 
-import com.liemily.recommender.example.cf.domain.DataSets;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

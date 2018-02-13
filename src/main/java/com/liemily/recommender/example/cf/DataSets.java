@@ -1,4 +1,4 @@
-package com.liemily.recommender.example.cf.domain;
+package com.liemily.recommender.example.cf;
 
 public class DataSets {
     private final String[][] testSet;

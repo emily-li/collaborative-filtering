@@ -1,6 +1,5 @@
 package com.liemily.recommender.example.cf;
 
-import com.liemily.recommender.example.cf.domain.DataSets;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -10,13 +9,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DataSetUtilsTest {
-    private static DataReader dataReader;
     private static DataSetUtils dataSetUtils;
     private static DataSet data;
 
     @BeforeClass
     public static void setupBeforeClass() throws Exception {
-        dataReader = new DataReader();
+        DataReader dataReader = new DataReader();
         dataSetUtils = new DataSetUtils();
 
         data = dataReader.getData("testdata/header", "testdata/data2", "\t");

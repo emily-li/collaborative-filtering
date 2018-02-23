@@ -19,19 +19,18 @@ public class PairwiseDistanceCalculator {
         return new double[0][];
     }
 
-    private double[][] cosineDistance(final int[][] matrix) {
-        double[][] distances = getSimilarity(Metric.COSINE);
+    private double[][] cosineDistance(final double[][] matrix) {
+        double[][] distances = cosineSimilarity(matrix);
         Arrays.stream(distances).forEach(line -> Arrays.stream(line).forEach(i -> i = i * -1 + 1));
+        // Clip to ensure numbers lower than 0 are 0, numbers higher than 2 should be 2
         correctSelfDistances(distances);
         return distances;
     }
 
-    private double[][] getSimilarity(Metric metric) {
-        return new double[0][];
-    }
-
-    private double[][] cosineSimilarity() {
-
+    private double[] cosineSimilarity(final double[][] matrix) {
+        double[][] normedMatrix = matrix.clone();
+        normalise(normedMatrix);
+        // return normedMatrix * normedMatrix.T
         return new double[0][];
     }
 
@@ -39,6 +38,7 @@ public class PairwiseDistanceCalculator {
     }
 
     private void normalise(double[][] matrix) {
+
         double[] norms = getNorms(matrix);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {

@@ -1,19 +1,20 @@
-package com.liemily.recommender.example.metrics;
+package com.liemily.recommender.example.math;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 
 public class PairwiseDistanceCalculatorTest {
     private static PairwiseDistanceCalculator pairwiseDistanceCalculator;
+    private static MathTestUtils mathTestUtils;
     private double[][] matrix;
 
     @BeforeClass
     public static void setupBeforeClass() {
         pairwiseDistanceCalculator = new PairwiseDistanceCalculator();
+        mathTestUtils = new MathTestUtils();
     }
 
     @Before
@@ -35,7 +36,7 @@ public class PairwiseDistanceCalculatorTest {
                 {1.32, 1.62, 1.92, 121.03}
         };
         final double[][] squaredMatrix = pairwiseDistanceCalculator.multiply(matrix, matrix);
-        assertMatrixEquals(expectedMatrix, squaredMatrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, squaredMatrix);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class PairwiseDistanceCalculatorTest {
                 {0.01, 0.01, 0.01, 121}
         };
         final double[][] squaredMatrix = pairwiseDistanceCalculator.elementWiseMultiply(matrix, matrix);
-        assertMatrixEquals(expectedMatrix, squaredMatrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, squaredMatrix);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class PairwiseDistanceCalculatorTest {
                 {0.05976, 0.02943, 0.02181, 1}
         };
         final double[][] cosineSimilarity = pairwiseDistanceCalculator.cosineSimilarity(matrix);
-        assertMatrixEquals(expectedMatrix, cosineSimilarity);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, cosineSimilarity);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class PairwiseDistanceCalculatorTest {
                 {0.94023, 0.97056, 0.97818, 0}
         };
         final double[][] cosineDistances = pairwiseDistanceCalculator.cosineDistances(matrix);
-        assertMatrixEquals(expectedMatrix, cosineDistances);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, cosineDistances);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class PairwiseDistanceCalculatorTest {
                 {0.00908, 0.00908, 0.00908, 0.99987}
         };
         final double[][] normalised = pairwiseDistanceCalculator.normalise(matrix);
-        assertMatrixEquals(expectedMatrix, normalised);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, normalised);
     }
 
     @Test
@@ -106,7 +107,7 @@ public class PairwiseDistanceCalculatorTest {
                 {1.02, 1.12, 64.03}
         };
         final double[][] transposedMatrix = pairwiseDistanceCalculator.transpose(matrix);
-        assertMatrixEquals(expectedMatrix, transposedMatrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, transposedMatrix);
     }
 
     @Test
@@ -118,16 +119,6 @@ public class PairwiseDistanceCalculatorTest {
                 {0.1, 0.1, 0.1, 0}
         };
         final double[][] correctedMatrix = pairwiseDistanceCalculator.correctSelfDistances(matrix);
-        assertMatrixEquals(expectedMatrix, correctedMatrix);
-    }
-
-    private void assertMatrixEquals(final double[][] expectedMatrix, final double[][] actualMatrix) {
-        assertEquals(expectedMatrix.length, actualMatrix.length);
-        assertEquals(expectedMatrix[0].length, actualMatrix[0].length);
-        for (int i = 0; i < expectedMatrix.length; i++) {
-            for (int j = 0; j < expectedMatrix[0].length; j++) {
-                assertEquals("Co-ordinates did not match: i=" + i + ", j=" + j, expectedMatrix[i][j], actualMatrix[i][j], 0.00001);
-            }
-        }
+        mathTestUtils.assertMatrixEquals(expectedMatrix, correctedMatrix);
     }
 }

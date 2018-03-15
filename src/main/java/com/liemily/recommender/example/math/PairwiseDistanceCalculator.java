@@ -1,4 +1,4 @@
-package com.liemily.recommender.example.metrics;
+package com.liemily.recommender.example.math;
 
 import java.util.Arrays;
 import java.util.stream.DoubleStream;

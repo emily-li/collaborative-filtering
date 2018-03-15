@@ -18,16 +18,21 @@ public class PairwiseDistanceCalculator {
     public double[][] calculate(final double[][] matrix, final Metric metric) {
         switch (metric) {
             case COSINE:
-                cosineDistance(matrix);
+                return cosineDistances(matrix);
             default:
                 throw new UnsupportedOperationException("Only metric type Cosine currently supported");
         }
     }
 
-    double[][] cosineDistance(final double[][] matrix) {
+    double[][] cosineDistances(final double[][] matrix) {
         double[][] distances = cosineSimilarity(matrix);
-        Arrays.stream(distances).forEach(line -> Arrays.stream(line).forEach(i -> i = i * -1 + 1));
-        correctSelfDistances(distances);
+        for (int i = 0; i < distances.length; i++) {
+            for (int j = 0; j < distances[0].length; j++) {
+                distances[i][j] *= -1;
+                distances[i][j] += 1;
+            }
+        }
+        distances = correctSelfDistances(distances);
         return distances;
     }
 
@@ -49,17 +54,17 @@ public class PairwiseDistanceCalculator {
     }
 
     /**
-     * Clips matrix to ensure numbers lower than 0 are 0, numbers higher than 2 should be 2
+     * Corrects matrix to set distances between vectors and themselves as 0
      *
      * @param distances Distances to correct. Matrix of any size
      * @return Corrected matrix
      */
     double[][] correctSelfDistances(final double[][] distances) {
         final double[][] correctedDistances = new double[distances.length][distances[0].length];
+
         for (int i = 0; i < distances.length; i++) {
             for (int j = 0; j < distances[0].length; j++) {
-                double val = distances[i][j];
-                correctedDistances[i][j] = val < 0 ? 0 : val > 2 ? 2 : val;
+                correctedDistances[i][j] = i == j ? 0 : distances[i][j];
             }
         }
         return correctedDistances;
@@ -70,7 +75,7 @@ public class PairwiseDistanceCalculator {
      *
      * @param matrix Matrix of any size
      */
-    private double[][] normalise(final double[][] matrix) {
+    double[][] normalise(final double[][] matrix) {
         double[][] normalised = matrix.clone();
         double[] norms = getNorms(normalised);
         for (int i = 0; i < normalised.length; i++) {
@@ -87,8 +92,8 @@ public class PairwiseDistanceCalculator {
      * @param matrix Input square matrix
      * @return Row wise norms of the matrix
      */
-    private double[] getNorms(final double[][] matrix) {
-        double[][] squares = multiply(matrix, matrix);
+    double[] getNorms(final double[][] matrix) {
+        double[][] squares = elementWiseMultiply(matrix, matrix);
         return Arrays.stream(squares)
                 .mapToDouble(vector -> DoubleStream.of(vector).sum())
                 .map(Math::sqrt)
@@ -109,5 +114,17 @@ public class PairwiseDistanceCalculator {
         return multiplied;
     }
 
+    double[][] elementWiseMultiply(final double[][] matrix1, final double[][] matrix2) {
+        if (matrix1.length != matrix2.length || matrix1[0].length != matrix2[0].length) {
+            throw new RuntimeException("Matrices must match in dimension for element wise multiplication");
+        }
+        double[][] multiplied = new double[matrix1.length][matrix2[0].length];
+        for (int i = 0; i < matrix1.length; i++) {
+            for (int j = 0; j < matrix2.length; j++) {
+                multiplied[i][j] = matrix1[i][j] * matrix2[i][j];
+            }
+        }
+        return multiplied;
+    }
 
 }

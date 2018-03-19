@@ -9,6 +9,12 @@ import java.util.stream.DoubleStream;
  * Provides distance defined as 1.0 less similarity
  */
 public class PairwiseDistanceCalculator {
+    private MatrixMathUtils matrixMathUtils;
+
+    public PairwiseDistanceCalculator(MatrixMathUtils matrixMathUtils) {
+        this.matrixMathUtils = matrixMathUtils;
+    }
+
     /**
      * @param matrix Square matrix
      * @param metric Metric with which to measure the distance
@@ -40,7 +46,7 @@ public class PairwiseDistanceCalculator {
         double[][] normedMatrix = matrix.clone();
         normedMatrix = normalise(normedMatrix);
         double[][] transposedMatrix = transpose(normedMatrix);
-        return multiply(normedMatrix, transposedMatrix);
+        return matrixMathUtils.dot(normedMatrix, transposedMatrix);
     }
 
     double[][] transpose(final double[][] matrix) {
@@ -98,20 +104,6 @@ public class PairwiseDistanceCalculator {
                 .mapToDouble(vector -> DoubleStream.of(vector).sum())
                 .map(Math::sqrt)
                 .toArray();
-    }
-
-    double[][] multiply(final double[][] matrix1, final double[][] matrix2) {
-        double[][] multiplied = new double[matrix1.length][matrix2[0].length];
-        Arrays.stream(multiplied).forEach(row -> Arrays.fill(row, 0.0));
-
-        for (int i = 0; i < matrix1.length; i++) {
-            for (int j = 0; j < matrix2[0].length; j++) {
-                for (int k = 0; k < matrix1[0].length; k++) {
-                    multiplied[i][j] += matrix1[i][k] * matrix2[k][j];
-                }
-            }
-        }
-        return multiplied;
     }
 
     double[][] elementWiseMultiply(final double[][] matrix1, final double[][] matrix2) {

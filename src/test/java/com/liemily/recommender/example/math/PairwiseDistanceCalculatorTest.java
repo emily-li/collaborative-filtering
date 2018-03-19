@@ -13,7 +13,7 @@ public class PairwiseDistanceCalculatorTest {
 
     @BeforeClass
     public static void setupBeforeClass() {
-        pairwiseDistanceCalculator = new PairwiseDistanceCalculator();
+        pairwiseDistanceCalculator = new PairwiseDistanceCalculator(new MatrixMathUtils());
         mathTestUtils = new MathTestUtils();
     }
 
@@ -25,18 +25,6 @@ public class PairwiseDistanceCalculatorTest {
                 {0.1, 0.1, 8.0, 0.1},
                 {0.1, 0.1, 0.1, 11.0}
         };
-    }
-
-    @Test
-    public void testMultiplication() {
-        final double[][] expectedMatrix = new double[][]{
-                {4.03, 0.72, 1.02, 1.32},
-                {0.72, 25.03, 1.32, 1.62},
-                {1.02, 1.32, 64.03, 1.92},
-                {1.32, 1.62, 1.92, 121.03}
-        };
-        final double[][] squaredMatrix = pairwiseDistanceCalculator.multiply(matrix, matrix);
-        mathTestUtils.assertMatrixEquals(expectedMatrix, squaredMatrix);
     }
 
     @Test

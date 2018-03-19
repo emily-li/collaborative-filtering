@@ -41,4 +41,22 @@ public class MatrixMathUtilsTest {
         final double[][] actual = matrixMathUtils.subtract(matrix, subtractVector);
         mathTestUtils.assertMatrixEquals(expected, actual);
     }
+
+    @Test
+    public void testDot() {
+        final double[][] expected = {
+                {821.4, 944.7, -3025.8, 1261.2},
+                {74122.7, 74461.7, -216840.85, 68248.35},
+                {-194918.165, -195766.287, 572018.738, -181331.064},
+                {-542, -526, 1433, -364}
+        };
+        final double[][] matrix2 = {
+                {-25, -26, -31, 83},
+                {77.5, 85.5, -247, 84},
+                {-222, -223, 652, -207},
+                {-1.5, -0.5, 0.5, 1.5}
+        };
+        final double[][] dotProduct = matrixMathUtils.dot(matrix, matrix2);
+        mathTestUtils.assertMatrixEquals(expected, dotProduct);
+    }
 }

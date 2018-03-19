@@ -14,6 +14,7 @@ public class Predictor {
         if (normalise) {
             final double means[] = matrixMathUtils.mean(data);
             final double[][] diff = matrixMathUtils.subtract(data, means);
+            double[][] similarity = matrixMathUtils.dot(entitySimilarity, diff);
         } else {
 
         }

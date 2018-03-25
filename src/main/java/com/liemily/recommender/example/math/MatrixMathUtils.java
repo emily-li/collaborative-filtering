@@ -36,7 +36,12 @@ public class MatrixMathUtils {
     }
 
     public double[][] add(final double[][] matrix, final double[] vector) {
-
-        return new double[][]{};
+        double[][] result = new double[matrix.length][vector.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                result[i][j] = matrix[i][j] + vector[j];
+            }
+        }
+        return result;
     }
 }

@@ -11,18 +11,23 @@ public class Predictor {
         this.matrixMathUtils = matrixMathUtils;
     }
 
-    public double[][] predict(final double[][] data, final double[][] entitySimilarity, boolean normalise) {
+    public double[][] predict(final double[][] data, final double[][] similarity, boolean normalise) {
         double[][] predictions;
+        double[][] similarityDiff;
+
+        double[] means = null;
         if (normalise) {
-            final double[] means = matrixMathUtils.mean(data);
+            means = matrixMathUtils.mean(data);
             final double[][] diff = matrixMathUtils.subtract(data, means);
-            final double[][] similarityDiff = matrixMathUtils.dot(entitySimilarity, diff);
-            final double[] absSimSum = Arrays.stream(entitySimilarity).mapToDouble(row -> Arrays.stream(row).map(Math::abs).sum()).toArray();
-            final double[][] diffOverSim = matrixMathUtils.divide(similarityDiff, absSimSum);
-            predictions = matrixMathUtils.add(diffOverSim, means);
+            similarityDiff = matrixMathUtils.dot(similarity, diff);
         } else {
-            predictions = null;
+            similarityDiff = matrixMathUtils.dot(data, similarity);
         }
+
+        final double[] absSimSum = Arrays.stream(similarity).mapToDouble(row -> Arrays.stream(row).map(Math::abs).sum()).toArray();
+        final double[][] diffOverSim = normalise ? matrixMathUtils.divide(similarityDiff, absSimSum, true) : matrixMathUtils.divide(similarityDiff, absSimSum, false);
+
+        predictions = normalise && means != null ? matrixMathUtils.add(diffOverSim, means) : diffOverSim;
         return predictions;
     }
 }

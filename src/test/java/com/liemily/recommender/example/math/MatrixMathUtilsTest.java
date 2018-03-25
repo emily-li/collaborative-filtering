@@ -81,12 +81,24 @@ public class MatrixMathUtilsTest {
     @Test
     public void testDivideVector() {
         final double[][] expected = {
+                {0.055, -0.014, -0.019, 44.4},
+                {-0.296, 0.001, -1.478, -0.52},
+                {0.118, -0.023, 3.898, 7.144},
+                {0.037, -0.023, 0.013, 1.6}
+        };
+        final double[][] divided = matrixMathUtils.divide(matrix, vector, false);
+        mathTestUtils.assertMatrixEquals(expected, divided);
+    }
+
+    @Test
+    public void testTransposedDivideVector() {
+        final double[][] expected = {
                 {0.055, 0.044, -0.153, 4.055},
                 {0.094, 0.002, 3.89, 0.015},
                 {0.014, 0.009, 3.898, 0.079},
                 {0.4, 0.8, 1.2, 1.6}
         };
-        final double[][] divided = matrixMathUtils.divide(matrix, vector);
+        final double[][] divided = matrixMathUtils.divide(matrix, vector, true);
         mathTestUtils.assertMatrixEquals(expected, divided);
     }
 

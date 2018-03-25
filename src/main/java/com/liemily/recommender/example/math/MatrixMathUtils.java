@@ -45,11 +45,12 @@ public class MatrixMathUtils {
         return multiplied;
     }
 
-    public double[][] divide(final double[][] dividend, final double[] divisor) {
+    public double[][] divide(final double[][] dividend, final double[] divisor, boolean transpose) {
         double[][] divided = new double[dividend.length][dividend[0].length];
         for (int i = 0; i < dividend.length; i++) {
             for (int j = 0; j < dividend.length; j++) {
-                divided[i][j] = dividend[i][j] / divisor[i];
+                int divisorIdx = transpose ? i : j;
+                divided[i][j] = dividend[i][j] / divisor[divisorIdx];
             }
         }
         return divided;

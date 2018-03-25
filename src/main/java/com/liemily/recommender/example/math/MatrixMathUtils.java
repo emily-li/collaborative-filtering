@@ -44,4 +44,24 @@ public class MatrixMathUtils {
         }
         return result;
     }
+
+    public double[][] divide(final double[][] dividend, final double[][] divisor) {
+        double[][] divided = new double[dividend.length][dividend[0].length];
+        for (int i = 0; i < dividend.length; i++) {
+            for (int j = 0; j < dividend.length; j++) {
+                divided[i][j] = dividend[i][j] / divisor[i][j];
+            }
+        }
+        return divided;
+    }
+
+    public double[][] transpose(final double[][] matrix) {
+        double[][] transposed = new double[matrix[0].length][matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                transposed[j][i] = matrix[i][j];
+            }
+        }
+        return transposed;
+    }
 }

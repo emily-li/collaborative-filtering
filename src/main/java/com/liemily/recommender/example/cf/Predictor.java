@@ -2,6 +2,8 @@ package com.liemily.recommender.example.cf;
 
 import com.liemily.recommender.example.math.MatrixMathUtils;
 
+import java.util.Arrays;
+
 public class Predictor {
     private MatrixMathUtils matrixMathUtils;
 
@@ -14,8 +16,9 @@ public class Predictor {
         if (normalise) {
             final double[] means = matrixMathUtils.mean(data);
             final double[][] diff = matrixMathUtils.subtract(data, means);
-            final double[][] similarityAgainstRatings = matrixMathUtils.dot(entitySimilarity, diff);
-            final double[][] accRatings = matrixMathUtils.add(similarityAgainstRatings, means);
+            final double[][] similarityDiff = matrixMathUtils.dot(entitySimilarity, diff);
+            final double[][] absSim = new double[][]{Arrays.stream(entitySimilarity).mapToDouble(row -> Arrays.stream(row).map(Math::abs).sum()).toArray()};
+            final double[] diffOverSim = matrixMathUtils.divide(similarityDiff, matrixMathUtils.transpose(absSim))[0];
         } else {
 
         }

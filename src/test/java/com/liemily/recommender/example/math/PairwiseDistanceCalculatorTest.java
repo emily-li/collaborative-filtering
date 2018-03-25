@@ -83,22 +83,6 @@ public class PairwiseDistanceCalculatorTest {
     }
 
     @Test
-    public void testTranspose() {
-        final double[][] matrix = new double[][]{
-                {4.03, 0.72, 1.02},
-                {0.88, 1.22, 1.12},
-                {3.22, 1.32, 64.03}
-        };
-        final double[][] expectedMatrix = new double[][]{
-                {4.03, 0.88, 3.22},
-                {0.72, 1.22, 1.32},
-                {1.02, 1.12, 64.03}
-        };
-        final double[][] transposedMatrix = pairwiseDistanceCalculator.transpose(matrix);
-        mathTestUtils.assertMatrixEquals(expectedMatrix, transposedMatrix);
-    }
-
-    @Test
     public void testCorrectSelfDistances() {
         final double[][] expectedMatrix = new double[][]{
                 {0, 0.1, 0.1, 0.1},

@@ -10,6 +10,7 @@ public class MatrixMathUtilsTest {
     private static MatrixMathUtils matrixMathUtils;
     private static MathTestUtils mathTestUtils;
     private double[][] matrix;
+    private double[][] matrix2;
     private double[] vector;
 
     @BeforeClass
@@ -25,6 +26,12 @@ public class MatrixMathUtilsTest {
                 {-8.1, -0.1, -333, -1.3},
                 {3.222, 1.93, 878.2, 17.86},
                 {1, 2, 3, 4}
+        };
+        matrix2 = new double[][]{
+                {-25, -26, -31, 83},
+                {77.5, 85.5, -247, 84},
+                {-222, -223, 652, -207},
+                {-1.5, -0.5, 0.5, 1.5}
         };
         vector = new double[]{27.375, -85.625, 225.303, 2.5};
     }
@@ -68,13 +75,35 @@ public class MatrixMathUtilsTest {
                 {-194918.165, -195766.287, 572018.738, -181331.064},
                 {-542, -526, 1433, -364}
         };
-        final double[][] matrix2 = {
-                {-25, -26, -31, 83},
-                {77.5, 85.5, -247, 84},
-                {-222, -223, 652, -207},
-                {-1.5, -0.5, 0.5, 1.5}
-        };
         final double[][] dotProduct = matrixMathUtils.dot(matrix, matrix2);
         mathTestUtils.assertMatrixEquals(expected, dotProduct);
+    }
+
+    @Test
+    public void testDivideVector() {
+        final double[][] expected = {
+                {-16.666, -21.667, 7.38, 0.748},
+                {-9.568, -855, 0.742, -64.615},
+                {-68.901, -115.544, 0.742, -11.59},
+                {-1.5, -0.25, 0.167, 0.375}
+        };
+        final double[][] divided = matrixMathUtils.divide(matrix2, matrix);
+        mathTestUtils.assertMatrixEquals(expected, divided);
+    }
+
+    @Test
+    public void testTranspose() {
+        final double[][] matrix = new double[][]{
+                {4.03, 0.72, 1.02},
+                {0.88, 1.22, 1.12},
+                {3.22, 1.32, 64.03}
+        };
+        final double[][] expectedMatrix = new double[][]{
+                {4.03, 0.88, 3.22},
+                {0.72, 1.22, 1.32},
+                {1.02, 1.12, 64.03}
+        };
+        final double[][] transposedMatrix = matrixMathUtils.transpose(matrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, transposedMatrix);
     }
 }

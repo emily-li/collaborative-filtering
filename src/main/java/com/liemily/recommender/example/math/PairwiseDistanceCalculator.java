@@ -45,18 +45,8 @@ public class PairwiseDistanceCalculator {
     double[][] cosineSimilarity(final double[][] matrix) {
         double[][] normedMatrix = matrix.clone();
         normedMatrix = normalise(normedMatrix);
-        double[][] transposedMatrix = transpose(normedMatrix);
+        double[][] transposedMatrix = matrixMathUtils.transpose(normedMatrix);
         return matrixMathUtils.dot(normedMatrix, transposedMatrix);
-    }
-
-    double[][] transpose(final double[][] matrix) {
-        double[][] transposed = new double[matrix[0].length][matrix.length];
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                transposed[j][i] = matrix[i][j];
-            }
-        }
-        return transposed;
     }
 
     /**

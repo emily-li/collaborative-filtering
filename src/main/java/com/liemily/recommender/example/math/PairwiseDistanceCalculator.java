@@ -1,8 +1,5 @@
 package com.liemily.recommender.example.math;
 
-import java.util.Arrays;
-import java.util.stream.DoubleStream;
-
 /**
  * Based on pairwise_distances function in https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/metrics/pairwise.py
  * <p>
@@ -44,7 +41,7 @@ public class PairwiseDistanceCalculator {
 
     double[][] cosineSimilarity(final double[][] matrix) {
         double[][] normedMatrix = matrix.clone();
-        normedMatrix = normalise(normedMatrix);
+        normedMatrix = matrixMathUtils.normalise(normedMatrix);
         double[][] transposedMatrix = matrixMathUtils.transpose(normedMatrix);
         return matrixMathUtils.dot(normedMatrix, transposedMatrix);
     }
@@ -65,48 +62,4 @@ public class PairwiseDistanceCalculator {
         }
         return correctedDistances;
     }
-
-    /**
-     * Normalises matrix by getting its norms and dividing the matrix by the norms
-     *
-     * @param matrix Matrix of any size
-     */
-    double[][] normalise(final double[][] matrix) {
-        double[][] normalised = matrix.clone();
-        double[] norms = getNorms(normalised);
-        for (int i = 0; i < normalised.length; i++) {
-            for (int j = 0; j < normalised[0].length; j++) {
-                normalised[i][j] /= norms[i];
-            }
-        }
-        return normalised;
-    }
-
-    /**
-     * Provides norms of square matrix X as sqrt(sum(X*X))
-     *
-     * @param matrix Input square matrix
-     * @return Row wise norms of the matrix
-     */
-    double[] getNorms(final double[][] matrix) {
-        double[][] squares = elementWiseMultiply(matrix, matrix);
-        return Arrays.stream(squares)
-                .mapToDouble(vector -> DoubleStream.of(vector).sum())
-                .map(Math::sqrt)
-                .toArray();
-    }
-
-    double[][] elementWiseMultiply(final double[][] matrix1, final double[][] matrix2) {
-        if (matrix1.length != matrix2.length || matrix1[0].length != matrix2[0].length) {
-            throw new RuntimeException("Matrices must match in dimension for element wise multiplication");
-        }
-        double[][] multiplied = new double[matrix1.length][matrix2[0].length];
-        for (int i = 0; i < matrix1.length; i++) {
-            for (int j = 0; j < matrix2.length; j++) {
-                multiplied[i][j] = matrix1[i][j] * matrix2[i][j];
-            }
-        }
-        return multiplied;
-    }
-
 }

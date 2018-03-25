@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-
 public class PairwiseDistanceCalculatorTest {
     private static PairwiseDistanceCalculator pairwiseDistanceCalculator;
     private static MathTestUtils mathTestUtils;
@@ -25,18 +23,6 @@ public class PairwiseDistanceCalculatorTest {
                 {0.1, 0.1, 8.0, 0.1},
                 {0.1, 0.1, 0.1, 11.0}
         };
-    }
-
-    @Test
-    public void testElementWiseMultiplication() {
-        final double[][] expectedMatrix = new double[][]{
-                {4, 0.01, 0.01, 0.01},
-                {0.01, 25, 0.01, 0.01},
-                {0.01, 0.01, 64, 0.01},
-                {0.01, 0.01, 0.01, 121}
-        };
-        final double[][] squaredMatrix = pairwiseDistanceCalculator.elementWiseMultiply(matrix, matrix);
-        mathTestUtils.assertMatrixEquals(expectedMatrix, squaredMatrix);
     }
 
     @Test
@@ -61,25 +47,6 @@ public class PairwiseDistanceCalculatorTest {
         };
         final double[][] cosineDistances = pairwiseDistanceCalculator.cosineDistances(matrix);
         mathTestUtils.assertMatrixEquals(expectedMatrix, cosineDistances);
-    }
-
-    @Test
-    public void testNormalise() {
-        final double[][] expectedMatrix = new double[][]{
-                {0.99627, 0.04981, 0.04981, 0.04981},
-                {0.01998, 0.99940, 0.01998, 0.01998},
-                {0.01249, 0.01249, 0.99976, 0.01249},
-                {0.00908, 0.00908, 0.00908, 0.99987}
-        };
-        final double[][] normalised = pairwiseDistanceCalculator.normalise(matrix);
-        mathTestUtils.assertMatrixEquals(expectedMatrix, normalised);
-    }
-
-    @Test
-    public void testNorms() {
-        final double[] expectedNorms = new double[]{2.00748599, 5.0029991, 8.00187478, 11.00136355};
-        final double[] norms = pairwiseDistanceCalculator.getNorms(matrix);
-        assertArrayEquals(expectedNorms, norms, 0.00001);
     }
 
     @Test

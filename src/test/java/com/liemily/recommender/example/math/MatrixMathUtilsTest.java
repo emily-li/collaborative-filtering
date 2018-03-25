@@ -113,4 +113,36 @@ public class MatrixMathUtilsTest {
         final double[][] transposedMatrix = matrixMathUtils.transpose(matrix);
         mathTestUtils.assertMatrixEquals(expectedMatrix, transposedMatrix);
     }
+
+
+    @Test
+    public void testElementWiseMultiplication() {
+        final double[][] expectedMatrix = new double[][]{
+                {2.25, 1.44, 17.64, 12321},
+                {65.61, 0.01, 110889, 1.69},
+                {10.381, 3.725, 771235.24, 318.98},
+                {1, 4, 9, 16}
+        };
+        final double[][] squaredMatrix = matrixMathUtils.elementWiseMultiply(matrix, matrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, squaredMatrix);
+    }
+
+    @Test
+    public void testNormalise() {
+        final double[][] expectedMatrix = new double[][]{
+                {0.014, 0.011, -0.038, 0.999},
+                {-0.024, -0.0003, -1, -0.004},
+                {0.004, 0.002, 1, 0.02},
+                {0.183, 0.366, 0.548, 0.73}
+        };
+        final double[][] normalised = matrixMathUtils.normalise(matrix);
+        mathTestUtils.assertMatrixEquals(expectedMatrix, normalised);
+    }
+
+    @Test
+    public void testNorms() {
+        final double[] expectedNorms = new double[]{111.096, 333.101, 878.39, 5.477};
+        final double[] norms = matrixMathUtils.getNorms(matrix);
+        assertArrayEquals(expectedNorms, norms, 0.001);
+    }
 }

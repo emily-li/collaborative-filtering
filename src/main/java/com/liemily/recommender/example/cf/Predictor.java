@@ -12,9 +12,10 @@ public class Predictor {
     public double predict(final double[][] data, final double[][] entitySimilarity, boolean normalise) {
         double prediction;
         if (normalise) {
-            final double means[] = matrixMathUtils.mean(data);
+            final double[] means = matrixMathUtils.mean(data);
             final double[][] diff = matrixMathUtils.subtract(data, means);
-            double[][] similarity = matrixMathUtils.dot(entitySimilarity, diff);
+            final double[][] similarityAgainstRatings = matrixMathUtils.dot(entitySimilarity, diff);
+            final double[][] accRatings = matrixMathUtils.add(similarityAgainstRatings, means);
         } else {
 
         }

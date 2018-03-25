@@ -34,4 +34,9 @@ public class MatrixMathUtils {
         }
         return multiplied;
     }
+
+    public double[][] add(final double[][] matrix, final double[] vector) {
+
+        return new double[][]{};
+    }
 }

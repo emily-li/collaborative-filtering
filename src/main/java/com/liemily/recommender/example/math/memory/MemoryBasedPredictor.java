@@ -1,11 +1,13 @@
-package com.liemily.recommender.example.math;
+package com.liemily.recommender.example.math.memory;
+
+import com.liemily.recommender.example.math.MatrixMathUtils;
 
 import java.util.Arrays;
 
-public class Predictor {
+public class MemoryBasedPredictor {
     private MatrixMathUtils matrixMathUtils;
 
-    public Predictor(MatrixMathUtils matrixMathUtils) {
+    public MemoryBasedPredictor(MatrixMathUtils matrixMathUtils) {
         this.matrixMathUtils = matrixMathUtils;
     }
 

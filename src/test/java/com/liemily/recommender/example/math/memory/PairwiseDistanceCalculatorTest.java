@@ -1,5 +1,8 @@
-package com.liemily.recommender.example.math;
+package com.liemily.recommender.example.math.memory;
 
+import com.liemily.recommender.example.math.MathTestUtils;
+import com.liemily.recommender.example.math.MatrixMathUtils;
+import com.liemily.recommender.example.math.memory.PairwiseDistanceCalculator;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

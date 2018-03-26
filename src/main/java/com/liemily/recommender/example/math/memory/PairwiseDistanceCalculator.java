@@ -1,4 +1,7 @@
-package com.liemily.recommender.example.math;
+package com.liemily.recommender.example.math.memory;
+
+import com.liemily.recommender.example.math.MatrixMathUtils;
+import com.liemily.recommender.example.math.Metric;
 
 /**
  * Based on pairwise_distances function in https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/metrics/pairwise.py

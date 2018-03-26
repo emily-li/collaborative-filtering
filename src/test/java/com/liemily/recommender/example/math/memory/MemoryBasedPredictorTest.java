@@ -1,20 +1,19 @@
-package com.liemily.recommender.example.data;
+package com.liemily.recommender.example.math.memory;
 
 import com.liemily.recommender.example.math.MathTestUtils;
 import com.liemily.recommender.example.math.MatrixMathUtils;
-import com.liemily.recommender.example.math.Predictor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class PredictorTest {
-    private static Predictor predictor;
+public class MemoryBasedPredictorTest {
+    private static MemoryBasedPredictor memoryBasedPredictor;
     private static MathTestUtils mathTestUtils;
     private static double[][] ratings;
     private static double[][] similarity;
 
     @BeforeClass
     public static void setupBeforeClass() {
-        predictor = new Predictor(new MatrixMathUtils());
+        memoryBasedPredictor = new MemoryBasedPredictor(new MatrixMathUtils());
         mathTestUtils = new MathTestUtils();
 
         ratings = new double[][]{
@@ -39,7 +38,7 @@ public class PredictorTest {
                 {113.578, 113.35, 145.818, 111.253},
                 {-34.066, -32.502, 110.334, -33.766}
         };
-        final double[][] predictions = predictor.predict(ratings, similarity, true);
+        final double[][] predictions = memoryBasedPredictor.predict(ratings, similarity, true);
         mathTestUtils.assertMatrixEquals(expected, predictions);
     }
 
@@ -51,7 +50,7 @@ public class PredictorTest {
                 {17.82712532, 6.64682627, 46.69, -202.76},
                 {6.94192819, 0.3765649, 6.352, 0.37}
         };
-        final double[][] predictions = predictor.predict(ratings, similarity, false);
+        final double[][] predictions = memoryBasedPredictor.predict(ratings, similarity, false);
         mathTestUtils.assertMatrixEquals(expected, predictions);
     }
 }

@@ -1,4 +1,4 @@
-package com.liemily.recommender.example.cf;
+package com.liemily.recommender.example.data;
 
 import java.util.Arrays;
 import java.util.HashMap;

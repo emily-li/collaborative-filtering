@@ -1,6 +1,4 @@
-package com.liemily.recommender.example.cf;
-
-import com.liemily.recommender.example.math.MatrixMathUtils;
+package com.liemily.recommender.example.math;
 
 import java.util.Arrays;
 

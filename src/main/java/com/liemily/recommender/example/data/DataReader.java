@@ -1,4 +1,4 @@
-package com.liemily.recommender.example.cf;
+package com.liemily.recommender.example.data;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

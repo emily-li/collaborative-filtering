@@ -1,7 +1,8 @@
-package com.liemily.recommender.example.cf;
+package com.liemily.recommender.example.data;
 
 import com.liemily.recommender.example.math.MathTestUtils;
 import com.liemily.recommender.example.math.MatrixMathUtils;
+import com.liemily.recommender.example.math.Predictor;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

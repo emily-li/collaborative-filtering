@@ -29,8 +29,25 @@ public class RMSECalculatorTest {
     }
 
     @Test
-    public void testRMSE() {
+    public void testRMSEFlattened() {
         final double expected = 16.9954;
+        final double rmse = rmseCalculator.getError(predictions, actuals);
+        Assert.assertEquals(expected, rmse, 0.0001);
+    }
+
+    @Test
+    public void testRMSE() {
+        final double expected = 34.9625;
+        final double[][] predictions = {
+                {1, 2, 3, 4},
+                {1.2, 2.2, 3.5, 4.5},
+                {52.1, 1, -4.2, 1}
+        };
+        final double[][] actuals = {
+                {1.1, 2.1, 3.1, 4.2},
+                {111, 2.1, 3.5, 4.5},
+                {1, 2.1, -4.24, 1}
+        };
         final double rmse = rmseCalculator.getError(predictions, actuals);
         Assert.assertEquals(expected, rmse, 0.0001);
     }

@@ -1,5 +1,7 @@
 package com.liemily.recommender.example.math;
 
+import java.util.Arrays;
+
 public abstract class ErrorCalculator {
     public double getError(final double[][] prediction, final double[][] actual) {
         double[] predictionValues = flatten(prediction);
@@ -7,8 +9,8 @@ public abstract class ErrorCalculator {
         return getError(predictionValues, actualValues);
     }
 
-    private double[] flatten(final double[][] matrix) {
-        return new double[]{};
+    double[] flatten(final double[][] matrix) {
+        return Arrays.stream(matrix).flatMapToDouble(row -> Arrays.stream(row).filter(i -> i != 0)).toArray();
     }
 
     abstract double getError(final double[] prediction, final double[] actual);

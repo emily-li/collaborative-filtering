@@ -46,7 +46,7 @@ public class PairwiseDistanceCalculator {
         double[][] normedMatrix = matrix.clone();
         normedMatrix = matrixMathUtils.normalise(normedMatrix);
         double[][] transposedMatrix = matrixMathUtils.transpose(normedMatrix);
-        return matrixMathUtils.dot(normedMatrix, transposedMatrix);
+        return matrixMathUtils.multiply(normedMatrix, transposedMatrix);
     }
 
     /**

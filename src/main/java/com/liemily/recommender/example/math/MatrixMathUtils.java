@@ -32,7 +32,7 @@ public class MatrixMathUtils {
         return result;
     }
 
-    public double[][] dot(final double[][] matrix1, final double[][] matrix2) {
+    public double[][] multiply(final double[][] matrix1, final double[][] matrix2) {
         double[][] multiplied = new double[matrix1.length][matrix2[0].length];
         Arrays.stream(multiplied).forEach(row -> Arrays.fill(row, 0.0));
 

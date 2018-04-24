@@ -61,7 +61,7 @@ public class MatrixMathUtilsTest {
     }
 
     @Test
-    public void testDot() {
+    public void testMultiply() {
         final double[][] expected = {
                 {821.4, 944.7, -3025.8, 1261.2},
                 {74122.7, 74461.7, -216840.85, 68248.35},
@@ -74,8 +74,8 @@ public class MatrixMathUtilsTest {
                 {-222, -223, 652, -207},
                 {-1.5, -0.5, 0.5, 1.5}
         };
-        final double[][] dotProduct = matrixMathUtils.dot(matrix, matrix2);
-        mathTestUtils.assertMatrixEquals(expected, dotProduct);
+        final double[][] multiplied = matrixMathUtils.multiply(matrix, matrix2);
+        mathTestUtils.assertMatrixEquals(expected, multiplied);
     }
 
     @Test

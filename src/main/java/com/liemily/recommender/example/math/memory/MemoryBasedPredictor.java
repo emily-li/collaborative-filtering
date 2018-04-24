@@ -19,9 +19,9 @@ public class MemoryBasedPredictor {
         if (normalise) {
             means = matrixMathUtils.mean(data);
             final double[][] diff = matrixMathUtils.subtract(data, means);
-            similarityDiff = matrixMathUtils.dot(similarity, diff);
+            similarityDiff = matrixMathUtils.multiply(similarity, diff);
         } else {
-            similarityDiff = matrixMathUtils.dot(data, similarity);
+            similarityDiff = matrixMathUtils.multiply(data, similarity);
         }
 
         final double[] absSimSum = Arrays.stream(similarity).mapToDouble(row -> Arrays.stream(row).map(Math::abs).sum()).toArray();

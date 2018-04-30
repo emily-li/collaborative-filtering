@@ -87,7 +87,7 @@ public class MatrixMathUtils {
      * @param matrix Matrix of any size
      */
     public double[][] normalise(final double[][] matrix) {
-        double[][] normalised = matrix.clone();
+        double[][] normalised = copy(matrix);
         double[] norms = getNorms(normalised);
         for (int i = 0; i < normalised.length; i++) {
             for (int j = 0; j < normalised[0].length; j++) {
@@ -109,5 +109,16 @@ public class MatrixMathUtils {
                 .mapToDouble(vector -> DoubleStream.of(vector).sum())
                 .map(Math::sqrt)
                 .toArray();
+    }
+
+
+    double[][] copy(final double[][] matrix) {
+        double[][] clone = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                clone[i][j] = matrix[i][j];
+            }
+        }
+        return clone;
     }
 }
